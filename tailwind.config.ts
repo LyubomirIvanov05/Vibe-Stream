@@ -11,6 +11,8 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        component_bg: "#1f1f1f;",
+        button_bg: "#363535"
       },
     },
   },
