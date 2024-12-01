@@ -71,7 +71,7 @@
     },
     {
       "id": 8,
-      "name": "Fair Trade (with Travi Scott)",
+      "name": "Fair Trade (with Travis Scott)",
       "artist": "Drake, Travis Scott",
       "album": "Certified Lover Boy",
       "image": "https://i.scdn.co/image/ab67616d0000b273cd945b4e3de57edd28481a3f",
@@ -91,7 +91,207 @@
     },
     {
       "id": 10,
-      "name": "HEROES % VILLAINS",
+      "name": "HEROES & VILLAINS",
+      "artist": "Metro Boomin",
+      "album": "After Hours",
+      "image": "https://i.scdn.co/image/ab67616d00001e02c4fee55d7b51479627c31f89",
+      "url": "https://example.com/songs/save-your-tears.mp3",
+      "duration": "3:35",
+      "type": "Album"
+    },
+    {
+      "id": 11,
+      "name": "Her Loss",
+      "artist": "Drake",
+      "album": "Her Loss",
+      "image": "https://i.scdn.co/image/ab67616d0000e1a302854a7060fccc1a66a4b5ad",
+      "url": "https://example.com/songs/dreams.mp3",
+      "duration": "4:14",
+      "type": "Album"
+    },
+    {
+      "id": 12,
+      "name": "Blinding Lights",
+      "artist": "The Weeknd",
+      "album": "After Hours",
+      "image": "https://i.scdn.co/image/ab67616d00001e028863bc11d2aa12b54f5aeb36",
+      "url": "https://example.com/songs/blinding-lights.mp3",
+      "duration": "3:20",
+      "type": "Song"
+    },
+    {
+      "id": 13,
+      "name": "Dark Lane Demo Tapes",
+      "artist": "Drake",
+      "album": "Dark Lane Demo Tapes",
+      "image": "https://i.scdn.co/image/ab67616d0000b273bba7cfaf7c59ff0898acba1f",
+      "url": "https://example.com/songs/shape-of-you.mp3",
+      "duration": "3:53",
+      "type": "Album"
+    },
+    {
+      "id": 14,
+      "name": "Starboy",
+      "artist": "The Weeknd",
+      "album": "Starboy",
+      "image": "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
+      "url": "https://example.com/songs/bohemian-rhapsody.mp3",
+      "duration": "5:55",
+      "type": "Song"
+    },
+    {
+      "id": 15,
+      "name": "Band 4 Band",
+      "artist": "Central Cee",
+      "album": "",
+      "image": "https://i.scdn.co/image/ab67616d00001e027b588bf0555bde606f8b27c7",
+      "url": "https://example.com/songs/smells-like-teen-spirit.mp3",
+      "duration": "5:01",
+      "type": "Song"
+    },
+    {
+      "id": 16,
+      "name": "23",
+      "artist": "Central Cee",
+      "album": "23",
+      "image": "https://i.scdn.co/image/ab67616d00001e02e1f05c994777b79bc5c87547",
+      "url": "https://example.com/songs/heat-waves.mp3",
+      "duration": "3:58",
+      "type": "Album"
+    },
+    {
+      "id": 17,
+      "name": "GNX",
+      "artist": "Kendrick Lamar",
+      "album": "GNX",
+      "image": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+      "url": "https://example.com/songs/levitating.mp3",
+      "duration": "3:24",
+      "type": "Album"
+    },
+    {
+      "id": 18,
+      "name": "Fair Trade (with Travis Scott)",
+      "artist": "Drake, Travis Scott",
+      "album": "Certified Lover Boy",
+      "image": "https://i.scdn.co/image/ab67616d0000b273cd945b4e3de57edd28481a3f",
+      "url": "https://example.com/songs/good-4-u.mp3",
+      "duration": "2:58",
+      "type": "Song"
+    },
+    {
+      "id": 19,
+      "name": "Whole Lotta Red",
+      "artist": "Playboi Carti",
+      "album": "Whole Lotta Red",
+      "image": "https://i.scdn.co/image/ab67616d0000b27398ea0e689c91f8fea726d9bb",
+      "url": "https://example.com/songs/industry-baby.mp3",
+      "duration": "3:32",
+      "type": "Album"
+    },
+    {
+      "id": 20,
+      "name": "HEROES & VILLAINS",
+      "artist": "Metro Boomin",
+      "album": "After Hours",
+      "image": "https://i.scdn.co/image/ab67616d00001e02c4fee55d7b51479627c31f89",
+      "url": "https://example.com/songs/save-your-tears.mp3",
+      "duration": "3:35",
+      "type": "Album"
+    },
+    {
+      "id": 21,
+      "name": "Her Loss",
+      "artist": "Drake",
+      "album": "Her Loss",
+      "image": "https://i.scdn.co/image/ab67616d0000e1a302854a7060fccc1a66a4b5ad",
+      "url": "https://example.com/songs/dreams.mp3",
+      "duration": "4:14",
+      "type": "Album"
+    },
+    {
+      "id": 22,
+      "name": "Blinding Lights",
+      "artist": "The Weeknd",
+      "album": "After Hours",
+      "image": "https://i.scdn.co/image/ab67616d00001e028863bc11d2aa12b54f5aeb36",
+      "url": "https://example.com/songs/blinding-lights.mp3",
+      "duration": "3:20",
+      "type": "Song"
+    },
+    {
+      "id": 23,
+      "name": "Dark Lane Demo Tapes",
+      "artist": "Drake",
+      "album": "Dark Lane Demo Tapes",
+      "image": "https://i.scdn.co/image/ab67616d0000b273bba7cfaf7c59ff0898acba1f",
+      "url": "https://example.com/songs/shape-of-you.mp3",
+      "duration": "3:53",
+      "type": "Album"
+    },
+    {
+      "id": 24,
+      "name": "Starboy",
+      "artist": "The Weeknd",
+      "album": "Starboy",
+      "image": "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
+      "url": "https://example.com/songs/bohemian-rhapsody.mp3",
+      "duration": "5:55",
+      "type": "Song"
+    },
+    {
+      "id": 25,
+      "name": "Band 4 Band",
+      "artist": "Central Cee",
+      "album": "",
+      "image": "https://i.scdn.co/image/ab67616d00001e027b588bf0555bde606f8b27c7",
+      "url": "https://example.com/songs/smells-like-teen-spirit.mp3",
+      "duration": "5:01",
+      "type": "Song"
+    },
+    {
+      "id": 26,
+      "name": "23",
+      "artist": "Central Cee",
+      "album": "23",
+      "image": "https://i.scdn.co/image/ab67616d00001e02e1f05c994777b79bc5c87547",
+      "url": "https://example.com/songs/heat-waves.mp3",
+      "duration": "3:58",
+      "type": "Album"
+    },
+    {
+      "id": 27,
+      "name": "GNX",
+      "artist": "Kendrick Lamar",
+      "album": "GNX",
+      "image": "https://i.scdn.co/image/ab67616d0000b273d9985092cd88bffd97653b58",
+      "url": "https://example.com/songs/levitating.mp3",
+      "duration": "3:24",
+      "type": "Album"
+    },
+    {
+      "id": 28,
+      "name": "Fair Trade (with Travis Scott)",
+      "artist": "Drake, Travis Scott",
+      "album": "Certified Lover Boy",
+      "image": "https://i.scdn.co/image/ab67616d0000b273cd945b4e3de57edd28481a3f",
+      "url": "https://example.com/songs/good-4-u.mp3",
+      "duration": "2:58",
+      "type": "Song"
+    },
+    {
+      "id": 29,
+      "name": "Whole Lotta Red",
+      "artist": "Playboi Carti",
+      "album": "Whole Lotta Red",
+      "image": "https://i.scdn.co/image/ab67616d0000b27398ea0e689c91f8fea726d9bb",
+      "url": "https://example.com/songs/industry-baby.mp3",
+      "duration": "3:32",
+      "type": "Album"
+    },
+    {
+      "id": 30,
+      "name": "HEROES & VILLAINS",
       "artist": "Metro Boomin",
       "album": "After Hours",
       "image": "https://i.scdn.co/image/ab67616d00001e02c4fee55d7b51479627c31f89",

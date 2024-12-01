@@ -11,8 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        component_bg: "#1f1f1f;",
-        button_bg: "#363535"
+        component_bg: "#121212;",
+        button_bg: "#363535",
+        song_bg: "#613447",
+        side_hovered_song: "#1f1f1f",
+        your_library: "#b3b3b3"
+      },
+      width: {
+        'custom-420': "26.25rem",
+        'custom-640': "40rem"
       },
     },
   },

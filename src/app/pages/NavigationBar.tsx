@@ -1,7 +1,7 @@
 export default function NavigationBar() {
     return(
-        <div className="flex flex-row justify-between px-4 pt-3">
-            <img src="logo.svg" alt="logo" className="w-10 h-auto"/>
+        <div className="flex flex-row justify-between px-4 pt-0 pb-2">
+            <img src="logo.svg" alt="logo" className="w-9 h-auto"/>
             <div className="flex flex-row gap-3 ">
                 <div className="rounded-full bg-components_bg flex items-center justify-center w-11 h-11 bg-component_bg">
                     <img src="home.svg" alt="home" className="w-6 h-6" />
