@@ -1,11 +1,14 @@
 export interface Song {
-    id: number;
-    name: string;
-    artist_id: number;
-    type: string;
-    album: string;
-    genre: string;
-    img_url: string;
-    mp3_url: string;
-    duration: `string`;
-  }
+  id: number;
+  name: string;
+  album_id?: number;
+  artist_id?: number; 
+  duration: number;
+  mp3_url: string;
+  img_url?: string; 
+  track_number?: number; 
+  plays: number;
+  type: string;
+  genre: string;
+  release_date: string; 
+}

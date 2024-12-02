@@ -21,6 +21,9 @@ export default {
         'custom-420': "26.25rem",
         'custom-640': "40rem"
       },
+      height: {
+        'custom-85%': "85%"
+      }
     },
   },
   plugins: [],

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import PlayBar from "./PlayBar";
 import { Song } from "@/types/song";
 import { Artist } from "@/types/artist";
+import { Album } from "@/types/album";
 
 
 
@@ -11,7 +12,8 @@ import { Artist } from "@/types/artist";
 export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongId: (id: number) => void }) {
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
-    const [filteredAritsts, setFilteredArtists] = useState(artists);
+    const [albums, setAlbums] = useState<Album[]>([]);
+    
     const [filteredSongs, setFilteredSongs] = useState(songs);
     const [isFiltered, setIsFiltered] = useState(false);
     const [hoveredSong, setHoveredSong] = useState(-1);
@@ -26,7 +28,9 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
             setFilteredSongs(data.songs);
 
             setArtists(data.artists);
-            setFilteredArtists(data.artists);
+            // setFilteredArtists(data.artists);
+
+            setAlbums(data.albums);
           } catch (error) {
             console.error('Error fetching songs:', error);
           }
@@ -38,9 +42,31 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
 
 
 
-    const getArtistName = (artists_id: number) => {
+    const getArtistName = (artists_id?: number) => {
+        if (artists_id === undefined) {
+            return "Unknown Artist";
+        }
         const artist = artists.find((artist) => artist.id === artists_id);
         return artist ? artist.name : "Unknown Artist";
+    }
+
+    const getAlbumName = (album_id?: number) => {
+        if (album_id === undefined) {
+            return "Unknown Album";
+        }
+        const album = albums.find((album) => album.id === album_id);
+        return album ? album.name : "Unknown Album"
+    }
+
+    const getAlbumImg = (album_id?: number) => {
+        if (album_id === undefined) {
+            return "";
+        }
+        const album = albums.find((album) => album.id === 1);
+        // console.log(album_id);
+
+        console.log(album);
+        return album ? album.cover_image_url : ""
     }
 
 
@@ -60,6 +86,7 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
         setSelectedSongId(id);
     };
     //px-16 py-12
+
 
     return(
         <div className="bg-component_bg px-3 py-5 flex flex-col gap-4 h-full w-custom-420 rounded-md overflow-auto">
@@ -81,7 +108,6 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
                  </div>
                 )}
             
-            
             <ul className="flex flex-col gap-1 overflow-auto">
                 {filteredSongs.map((song) =>(
                     <li key={song.id} className={`flex flex-row gap-4 p-2 rounded ${
@@ -91,7 +117,7 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
                        {hoveredSong === song.id ? 
                        (<>
                             <div className="relative">
-                                <img src={song.img_url} alt={song.name} width={48} height={48} className="rounded"/>
+                                <img src={getAlbumImg(song.album_id)} alt={song.name} width={48} height={48} className="rounded"/>
                                 <button className="absolute w-4 top-3 left-4 hover:scale-110"
                                 onClick={() => handleSelectSong(song.id)}>
                                     <img src="(hover)playButton.svg" alt="Play Button"/>
@@ -103,10 +129,10 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
                             </div>
                        </>) : 
                        (<>
-                            <img src={song.img_url} alt={song.name} width={48} height={48} className="rounded"/>
+                            <img src={getAlbumImg(song.album_id)} alt={song.name} width={48} height={48} className="rounded"/>
                             <div>
                                 <h2>{song.name}</h2>
-                                <p>{song.type} &#x2022; {getArtistName(song.artist_id)}</p>
+                                <p>{song.type} &#x2022; {getAlbumName(song.album_id)}</p>
                             </div>
                        </>)}
                     </li>

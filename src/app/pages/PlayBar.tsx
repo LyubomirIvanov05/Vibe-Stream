@@ -2,10 +2,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Song } from "@/types/song";
 import { Artist } from "@/types/artist";
+import { Album } from "@/types/album";
 
 export default function PlayBar({ selectedSongId }: { selectedSongId: number | null }) {
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
+    const [albums, setAlbums] = useState<Album[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null); 
 
     useEffect(() => {
@@ -16,6 +18,7 @@ export default function PlayBar({ selectedSongId }: { selectedSongId: number | n
 
             setSongs(data.songs);
             setArtists(data.artists);
+            setAlbums(data.albums);
           } catch (error) {
             console.error('Error fetching songs:', error);
           }
@@ -36,6 +39,10 @@ export default function PlayBar({ selectedSongId }: { selectedSongId: number | n
         return playingSongArtist || null;
     }
 
+    const getAlbum = (album_id: number): Album | null => {
+        const playingSongAlbum = albums.find((album) => album.id === album_id);
+        return playingSongAlbum || null;
+    }
 
     useEffect(() => {
         if (selectedSongId !== null) {
@@ -49,21 +56,24 @@ export default function PlayBar({ selectedSongId }: { selectedSongId: number | n
 
     const selectedSong = selectedSongId !== null ? getSong(selectedSongId) : null;
     const selectedSongArtist = selectedSong && selectedSong.artist_id !== undefined ? getArtist(selectedSong.artist_id) : null;
+    const selectedSongAlbum = selectedSong && selectedSong.album_id !== undefined ? getAlbum(selectedSong.album_id) : null;
     return(
-         <div className="px-3 py-2">
+         <div className="px-3 py-2 flex h-full">
                 {selectedSong ? (
-                       <div className="flex flex-row justify-around">
-                        <div className="flex flex-row gap-4 justify-items-start items-center">
-                            <img src={selectedSong.img_url} alt="Song Cover" width={56} height={56}/>
-                            <div>
-                                <p className="text-sm">{selectedSong.name}</p>
-                                <p className="text-xs">{selectedSongArtist? selectedSongArtist.name : "Unknown Artist"}</p>
+                       <div className="flex flex-row items-center">
+                            <div className="flex flex-row gap-4 justify-items-start items-center">
+                                <img src={selectedSongAlbum? selectedSongAlbum.cover_image_url : "Soong Cover"} alt="Song Cover" width={56} height={56}/>
+                                <div>
+                                    <p className="text-sm">{selectedSong.name}</p>
+                                    <p className="text-xs">{selectedSongArtist? selectedSongArtist.name : "Unknown Artist"}</p>
+                                </div>
                             </div>
-                        </div>
-                         <audio ref={audioRef} controls>
-                            <source src={selectedSong.album} type="audio/mp3" />
-                            Your browser does not support the audio element.
-                        </audio>
+                            <div>
+                                <audio ref={audioRef} controls>
+                                    <source src={selectedSong.mp3_url} type="audio/mp3" />
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
                        </div>
                     ) : selectedSong === null ? (
                     <p>Select a song to play</p>

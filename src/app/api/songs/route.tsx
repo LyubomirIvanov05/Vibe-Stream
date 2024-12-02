@@ -7,8 +7,14 @@ export async function GET() {
     const sql = neon(`${process.env.DATABASE_URL}`);
     
     const songs = await sql('SELECT * FROM Songs');
-    const artists = await sql('SELECT * FROM Artists')
-    return NextResponse.json({songs, artists});
+    const artists = await sql('SELECT * FROM Artists');
+    const albums = await sql('SELECT * FROM Albums');
+
+    console.log('Fetched songs:', songs);
+console.log('Fetched artists:', artists);
+console.log('Fetched albums:', albums);
+
+    return NextResponse.json({songs, artists, albums});
   } catch (error) {
     console.error('Error fetching songs:', error);
     return NextResponse.json({ error: 'Failed to fetch songs' }, { status: 500 });
