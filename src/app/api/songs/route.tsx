@@ -10,10 +10,6 @@ export async function GET() {
     const artists = await sql('SELECT * FROM Artists');
     const albums = await sql('SELECT * FROM Albums');
 
-    console.log('Fetched songs:', songs);
-console.log('Fetched artists:', artists);
-console.log('Fetched albums:', albums);
-
     return NextResponse.json({songs, artists, albums});
   } catch (error) {
     console.error('Error fetching songs:', error);

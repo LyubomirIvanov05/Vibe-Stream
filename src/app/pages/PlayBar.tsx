@@ -3,8 +3,11 @@ import { useState, useEffect, useRef } from "react";
 import { Song } from "@/types/song";
 import { Artist } from "@/types/artist";
 import { Album } from "@/types/album";
+import { AlbumContext, useAlbumContext, useSongContext } from "./AlbumContext";
 
-export default function PlayBar({ selectedSongId }: { selectedSongId: number | null }) {
+export default function PlayBar() {
+    const { song } = useSongContext();
+ 
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
     const [albums, setAlbums] = useState<Album[]>([]);
@@ -45,16 +48,16 @@ export default function PlayBar({ selectedSongId }: { selectedSongId: number | n
     }
 
     useEffect(() => {
-        if (selectedSongId !== null) {
-            const song = getSong(selectedSongId);
-            if (song && audioRef.current) {
-                audioRef.current.src = song.mp3_url;
+        if (song.id !== null) {
+            const currSong = getSong(song.id);
+            if (currSong && audioRef.current) {
+                audioRef.current.src = currSong.mp3_url;
                 audioRef.current.play();
             }
         }
-    }, [selectedSongId]);
+    }, [song.id]);
 
-    const selectedSong = selectedSongId !== null ? getSong(selectedSongId) : null;
+    const selectedSong = song.id !== null ? getSong(song.id) : null;
     const selectedSongArtist = selectedSong && selectedSong.artist_id !== undefined ? getArtist(selectedSong.artist_id) : null;
     const selectedSongAlbum = selectedSong && selectedSong.album_id !== undefined ? getAlbum(selectedSong.album_id) : null;
     return(

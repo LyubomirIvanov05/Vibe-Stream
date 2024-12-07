@@ -3,8 +3,10 @@ import { Album } from "@/types/album";
 import { Artist } from "@/types/artist";
 import { Song } from "@/types/song";
 import { useState, useEffect } from "react";
+import { useSongContext } from "./AlbumContext";
 
-export default function SongContent({ selectedSongId }: { selectedSongId: number | null }) {
+export default function SongContent() {
+    const { song } = useSongContext();
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
     const [albums, setAlbums] = useState<Album[]>([]);
@@ -46,7 +48,7 @@ export default function SongContent({ selectedSongId }: { selectedSongId: number
         return albums.filter((album) => album.artist_id === artist_id);
     }
 
-      const selectedSong = selectedSongId !== null ? getSong(selectedSongId) : null;
+      const selectedSong = song.id !== null ? getSong(song.id) : null;
       const selectedSongArtist = selectedSong && selectedSong.artist_id !== undefined ? getArtist(selectedSong.artist_id) : null;
       const selectedSongAlbum = selectedSong && selectedSong.album_id !== undefined ? getAlbum(selectedSong.album_id) : null;
       const artistAlbums = selectedSongArtist ? albumsFromArtist(selectedSongArtist.id) : [];
@@ -58,10 +60,10 @@ export default function SongContent({ selectedSongId }: { selectedSongId: number
                         <a className="font-bold hover:underline" href="">{selectedSongAlbum?.name}</a>
                         <div className="flex gap-4">
                             <button>
-                            <img className="w-5 h-5" src="moreButton.svg" alt="More button" />
+                            <img className="w-5 h-5" src="/moreButton.svg" alt="More button" />
                             </button>
                             <button>
-                                <img className="w-5 h-5" src="close.svg" alt="More button" />
+                                <img className="w-5 h-5" src="/close.svg" alt="More button" />
                             </button>
                         </div>
                     </div>

@@ -1,17 +1,19 @@
 'use client'
-import songs from "../../songs.json";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Song } from "@/types/song";
-import { Artist } from "@/types/artist";
+import { useEffect, useState } from "react";
 import { Album } from "@/types/album";
+import { usePathname, useRouter } from "next/navigation";
+import { useAlbumContext } from "../pages/AlbumContext";
 
-export default function MainContent({ setCurrentAlbumId, }: { setCurrentAlbumId: Dispatch<SetStateAction<number | null>>}) {
 
+  
+
+export default function MainContent() {
+    const { album, setAlbum } = useAlbumContext();
     const [activeFilter, setActiveFilter] = useState("Everyone");
     const [albums, setAlbums] = useState<Album[]>([]);
     const [filteredAlbums, setFilteredAlbums] = useState<Album[]>([]);
-    const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
     const [hoveredContent, setHoveredContent] = useState<number | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         async function fetchSongs() {
@@ -39,29 +41,10 @@ export default function MainContent({ setCurrentAlbumId, }: { setCurrentAlbumId:
         }
       }
 
-      const handleAlbumClick = (album: Album) => {
-        setSelectedAlbum(album);
-      }
 
-
-
-
-    const showAll = () => {
-        setAlbums(albums);
-
-        setActiveFilter("Everyone")
-    }
-
-    // const showAlbums = () => {   
-    //     const albums =albums.filter((album) => song.type === "Album");
-    //     setFilteredSongs(albums);
-    //     setActiveFilter("Albums")
-    // }
-
-    const showMusic = () => {
-        setAlbums(albums);
-        setActiveFilter("Music");
-    }
+      const handleSelectAlbum = (selectedAlbum: Album) => {
+        setAlbum(selectedAlbum);
+    };
 
 
 
@@ -88,14 +71,16 @@ export default function MainContent({ setCurrentAlbumId, }: { setCurrentAlbumId:
                     activeFilter === "Audiobooks" ? "bg-white text-black" : "text-white"}`}
                 onClick={() => filterContent("Audiobooks")}>Audiobooks</button>
             </ul>
-            <div className="grid grid-cols-2 grid-rows-4 gap-2">
+            <div className="grid grid-cols-2 grid-rows-4 gap-2">    
                 {filteredAlbums.slice(0, 8).map((album) => (
                     <li key={album.id} className={`list-none flex flex-row gap-2 items-center relative rounded-md overflow-hidden ${
                         hoveredContent === album.id ? "bg-red-950" : "bg-song_bg"}`} 
                         onMouseEnter={() => setHoveredContent(album.id)} onMouseLeave={() => setHoveredContent(null)}
-                        onClick={() => handleAlbumClick(album)}>
+                        onClick={() => (
+                            router.push(`/album/${album.id}`), 
+                            handleSelectAlbum(album))}>
                         {hoveredContent === album.id ? (
-                            <div className="flex flex-row items-center gap-2" onClick={() => setCurrentAlbumId(album.id)}>
+                            <div className="flex flex-row items-center gap-2" onClick={() => setAlbum(album)}>
                                 <img src={album.cover_image_url} alt={album.name} width={48} height={48}/>
                                 <h2>{album.name}</h2>
                                 <img src="playButton.svg" alt="Play button" className="w-8 absolute right-2 hover:scale-110"/>

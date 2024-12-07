@@ -1,15 +1,13 @@
 'use client'
+
 import { useState, useEffect, useRef } from "react";
 import PlayBar from "./PlayBar";
 import { Song } from "@/types/song";
 import { Artist } from "@/types/artist";
 import { Album } from "@/types/album";
+import { useAlbumContext, useSongContext } from "./AlbumContext";
 
-
-
-
-
-export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongId: (id: number) => void }) {
+export default function LibrarySidebar() {
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
     const [albums, setAlbums] = useState<Album[]>([]);
@@ -17,6 +15,7 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
     const [filteredSongs, setFilteredSongs] = useState(songs);
     const [isFiltered, setIsFiltered] = useState(false);
     const [hoveredSong, setHoveredSong] = useState(-1);
+    const { setSong } = useSongContext();
 
     useEffect(() => {
         async function fetchSongs() {
@@ -63,9 +62,7 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
             return "";
         }
         const album = albums.find((album) => album.id === 1);
-        // console.log(album_id);
 
-        console.log(album);
         return album ? album.cover_image_url : ""
     }
 
@@ -82,8 +79,8 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
     }
 
 
-    const handleSelectSong = (id: number) => {
-        setSelectedSongId(id);
+    const handleSelectSong = (selectedSong: Song) => {
+        setSong(selectedSong);
     };
     //px-16 py-12
 
@@ -91,13 +88,13 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
     return(
         <div className="bg-component_bg px-3 py-5 flex flex-col gap-4 h-full w-custom-420 rounded-md overflow-auto">
             <div className="flex flex-row gap-4 px-2">
-                <img src="library.svg" alt="Library Logo" className="w-6"/>
+                <img src="/library.svg" alt="Library Logo" className="w-6"/>
                 <h1 className="font-bold text-your_library hover:text-white transition-colors duration-300 ease-in-out">Your library</h1>
             </div>
             {isFiltered ? (
                 <div className="flex flex-row gap-2 px-2">
                   <button onClick={showAll} className="bg-button_bg rounded-full flex items-center justify-center w-7 h-7">
-                      <img src="close.svg" alt="Close button" className="w-5 h-5" />
+                      <img src="/close.svg" alt="Close button" className="w-5 h-5" />
                   </button>
                   <button className="bg-white rounded-3xl py-1 px-4 text-sm text-black" onClick={showAlbums}>Playlists</button>
                 </div>
@@ -119,8 +116,8 @@ export default function LibrarySidebar({ setSelectedSongId }: { setSelectedSongI
                             <div className="relative">
                                 <img src={getAlbumImg(song.album_id)} alt={song.name} width={48} height={48} className="rounded"/>
                                 <button className="absolute w-4 top-3 left-4 hover:scale-110"
-                                onClick={() => handleSelectSong(song.id)}>
-                                    <img src="(hover)playButton.svg" alt="Play Button"/>
+                                onClick={() => handleSelectSong(song)}>
+                                    <img src="/(hover)playButton.svg" alt="Play Button"/>
                                 </button>
                             </div>
                             <div>

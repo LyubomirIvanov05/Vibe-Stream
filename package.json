@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,6 +16,9 @@
     "@neondatabase/serverless": "^0.10.4",
     "@savvywombat/tailwindcss-grid-areas": "^4.0.0",
     "@vercel/edge-config": "^1.4.0",
+    "@vibrant/core": "^3.2.1-alpha.1",
+    "color-thief-react": "^2.1.0",
+    "colorthief": "^2.6.0",
     "dotenv": "^16.4.5",
     "next": "15.0.3",
     "pg": "^8.13.1",
