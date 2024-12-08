@@ -6,6 +6,7 @@ import { Song } from "@/types/song";
 import { Artist } from "@/types/artist";
 import { Album } from "@/types/album";
 import { useAlbumContext, useSongContext } from "./AlbumContext";
+import { useRouter } from "next/navigation";
 
 export default function LibrarySidebar() {
     const [songs, setSongs] = useState<Song[]>([]);
@@ -13,9 +14,12 @@ export default function LibrarySidebar() {
     const [albums, setAlbums] = useState<Album[]>([]);
     
     const [filteredSongs, setFilteredSongs] = useState(songs);
+    const [filteredAlbums, setFilteredAlbums] = useState(albums);
     const [isFiltered, setIsFiltered] = useState(false);
     const [hoveredSong, setHoveredSong] = useState(-1);
     const { setSong } = useSongContext();
+    const router = useRouter();
+    const { album, setAlbum } = useAlbumContext();
 
     useEffect(() => {
         async function fetchSongs() {
@@ -27,9 +31,9 @@ export default function LibrarySidebar() {
             setFilteredSongs(data.songs);
 
             setArtists(data.artists);
-            // setFilteredArtists(data.artists);
 
             setAlbums(data.albums);
+            setFilteredAlbums(data.albums);
           } catch (error) {
             console.error('Error fetching songs:', error);
           }
@@ -61,26 +65,25 @@ export default function LibrarySidebar() {
         if (album_id === undefined) {
             return "";
         }
-        const album = albums.find((album) => album.id === 1);
+        const album = albums.find((album) => album.id === album_id);
 
         return album ? album.cover_image_url : ""
     }
 
 
     const showAlbums = () => {
-        const albums =songs.filter((song) => song.type === "Album");
+        const albums = songs.filter((song) => song.type === "Album");
         setFilteredSongs(albums);
         setIsFiltered(true);
     }
 
     const showAll = () => {
-        setFilteredSongs(songs);
+        setFilteredAlbums(albums);
         setIsFiltered(false);
     }
 
-
-    const handleSelectSong = (selectedSong: Song) => {
-        setSong(selectedSong);
+    const handleSelectAlbum = (selectedAlbum: Album) => {
+        setAlbum(selectedAlbum);
     };
     //px-16 py-12
 
@@ -106,30 +109,32 @@ export default function LibrarySidebar() {
                 )}
             
             <ul className="flex flex-col gap-1 overflow-auto">
-                {filteredSongs.map((song) =>(
-                    <li key={song.id} className={`flex flex-row gap-4 p-2 rounded ${
-                        hoveredSong === song.id ? "bg-side_hovered_song" : "bg-inherit"
+                {filteredAlbums.map((album) =>(
+                    <li key={album.id} className={`flex flex-row gap-4 p-2 rounded ${
+                        hoveredSong === album.id ? "bg-side_hovered_song" : "bg-inherit"
                     }`}
-                    onMouseEnter={() => setHoveredSong(song.id)} onMouseLeave={() => setHoveredSong(-1)}>
-                       {hoveredSong === song.id ? 
+                    onMouseEnter={() => setHoveredSong(album.id)} onMouseLeave={() => setHoveredSong(-1)}
+                    onClick={() => (
+                        router.push(`/album/${album.id}`), 
+                        handleSelectAlbum(album))}>
+                       {hoveredSong === album.id ? 
                        (<>
                             <div className="relative">
-                                <img src={getAlbumImg(song.album_id)} alt={song.name} width={48} height={48} className="rounded"/>
-                                <button className="absolute w-4 top-3 left-4 hover:scale-110"
-                                onClick={() => handleSelectSong(song)}>
+                                <img src={getAlbumImg(album.id)} alt={album.name} width={48} height={48} className="rounded"/>
+                                <button className="absolute w-4 top-3 left-4 hover:scale-110">
                                     <img src="/(hover)playButton.svg" alt="Play Button"/>
                                 </button>
-                            </div>
+                            </div>  
                             <div>
-                                <h2>{song.name}</h2>
-                                <p>{song.type} &#x2022; {getArtistName(song.artist_id)}</p>
+                                <h2>{album.name}</h2>
+                                <p>{album.genre} &#x2022; {getArtistName(album.artist_id)}</p>
                             </div>
                        </>) : 
                        (<>
-                            <img src={getAlbumImg(song.album_id)} alt={song.name} width={48} height={48} className="rounded"/>
+                            <img src={getAlbumImg(album.id)} alt={album.name} width={48} height={48} className="rounded"/>
                             <div>
-                                <h2>{song.name}</h2>
-                                <p>{song.type} &#x2022; {getAlbumName(song.album_id)}</p>
+                                <h2>{album.name}</h2>
+                                <p>{album.genre} &#x2022; {getArtistName(album.artist_id)}</p>
                             </div>
                        </>)}
                     </li>

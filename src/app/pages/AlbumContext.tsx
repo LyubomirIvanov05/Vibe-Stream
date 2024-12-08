@@ -93,7 +93,6 @@ export function SongContextProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Hooks for consuming contexts
 export function useAlbumContext() {
   const context = useContext(AlbumContext);
   if (!context) {

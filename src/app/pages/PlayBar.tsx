@@ -3,15 +3,17 @@ import { useState, useEffect, useRef } from "react";
 import { Song } from "@/types/song";
 import { Artist } from "@/types/artist";
 import { Album } from "@/types/album";
-import { AlbumContext, useAlbumContext, useSongContext } from "./AlbumContext";
+import { useSongContext } from "./AlbumContext";
+
+
 
 export default function PlayBar() {
-    const { song } = useSongContext();
- 
+    const { song } = useSongContext();  
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
     const [albums, setAlbums] = useState<Album[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null); 
+
 
     useEffect(() => {
         async function fetchSongs() {
@@ -61,7 +63,7 @@ export default function PlayBar() {
     const selectedSongArtist = selectedSong && selectedSong.artist_id !== undefined ? getArtist(selectedSong.artist_id) : null;
     const selectedSongAlbum = selectedSong && selectedSong.album_id !== undefined ? getAlbum(selectedSong.album_id) : null;
     return(
-         <div className="px-3 py-2 flex h-full">
+         <div className="px-3 py-2 flex">
                 {selectedSong ? (
                        <div className="flex flex-row items-center">
                             <div className="flex flex-row gap-4 justify-items-start items-center">

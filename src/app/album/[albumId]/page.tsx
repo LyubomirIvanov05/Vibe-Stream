@@ -1,18 +1,38 @@
 'use client'
-import { useAlbumContext } from "@/app/pages/AlbumContext";
+import { useAlbumContext, useSongContext } from "@/app/pages/AlbumContext";
 import { Album } from "@/types/album";
 import { Artist } from "@/types/artist";
 import { Song } from "@/types/song";
+import { useRouter } from "next/navigation";
 import {useEffect, useState } from "react";
 
-export default function AlbumContentPage({ params }: { params: { id: string } }){
-    const albumId = parseInt(params.id, 10);
-    const {album} = useAlbumContext();
+interface AlbumContentPageProps {
+    params: Promise<{ albumId: string }>;
+  }
+
+
+export default  function AlbumContentPage({ params, }: AlbumContentPageProps){
+    const [albumId, setAlbumId] = useState<number | null>(null); 
     const [songs, setSongs] = useState<Song[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
+    const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
+    const [hoveredSong, setHoveredSong] = useState(-1);
+    const { setSong } = useSongContext();
 
+
+
+   
+    useEffect(() => {
+        const unwrapParams = async () => {
+          const { albumId } = await params; // Wait for the promise to resolve
+          setAlbumId(parseInt(albumId, 10)); // Set the albumId to state
+        };
+    
+        unwrapParams();
+      }, [params]);
         
     useEffect(() => {
+        if (albumId === null) return;
         async function fetchContent() {
           try {
             const response = await fetch('/api/songs');
@@ -20,26 +40,39 @@ export default function AlbumContentPage({ params }: { params: { id: string } })
 
             setSongs(data.songs);
             setArtists(data.artists);
+
+            const album = data.albums.find((album: Album) => album.id === albumId);
+            setSelectedAlbum(album || null);
           } catch (error) {
             console.error('Error fetching songs:', error);
           }
         }
     
         fetchContent();
-      }, []);
+      }, [albumId]);
 
-      const artist = artists.find((artist) => artist.id === album.artist_id);
-      const albumSongsCount = songs.filter((song) => song.album_id === album.id).length;
-      const minutes = (album.total_duration || 0) / 60;
-      const seconds = (album.total_duration || 0) % 60;
 
-      console.log("Album id:   " + album.id)  
+      if (!selectedAlbum) {
+        return <div className="w-custom-640 flex flex-row items-center justify-center">Loading album...</div>;
+      }
+
+  
+      const handleSelectSong = (selectedSong: Song) => {
+        setSong(selectedSong);
+    };
+
+
+      const artist = artists.find((artist) => artist.id === selectedAlbum?.artist_id);
+      const albumSongsCount = songs.filter((song) => song.album_id === selectedAlbum?.id).length;
+      const minutes = (selectedAlbum?.total_duration || 0) / 60;
+      const seconds = (selectedAlbum?.total_duration || 0) % 60;
+
     return(
-          <div className="bg-component_bg w-custom-640 p-4 h-full rounded-md overflow-auto">
+          <div className="bg-component_bg w-custom-640 w-max-full    p-4 h-full rounded-md overflow-auto">
               <div className="flex flex-row gap-4 items-end mb-6">
                   <img 
-                      src={album.cover_image_url} 
-                      alt={album.name} 
+                      src={selectedAlbum?.cover_image_url} 
+                      alt={selectedAlbum?.name} 
                       width={145} 
                       height={145} 
                       className="shadow-2xl"
@@ -47,9 +80,9 @@ export default function AlbumContentPage({ params }: { params: { id: string } })
       
                   <div className="items-end h-full text-white">
                       <p className="text-xs opacity-80">Album</p>
-                      <h1 className="text-3xl font-bold">{album.name}</h1>
+                      <h1 className="text-3xl font-bold">{selectedAlbum?.name}</h1>
                       <p className="text-sm opacity-90">
-                          {artist?.name} &#x2022; {album.release_date} &#x2022; {albumSongsCount} songs, {Math.floor(minutes)} min {seconds} sec
+                          {artist?.name} &#x2022; {selectedAlbum?.release_date} &#x2022; {albumSongsCount} songs, {Math.floor(minutes)} min {seconds} sec
                       </p>
                   </div>
               </div>
@@ -68,19 +101,37 @@ export default function AlbumContentPage({ params }: { params: { id: string } })
                   </div>
                   <div className="w-full h-px bg-white border-none opacity-30 mb-3"></div>
                   <div className="px-2 text-white">
-                      {songs.filter((song) => song.album_id === album.id).map((song) => (
+                      {songs.filter((song) => song.album_id === selectedAlbum?.id).map((song) => (
                           <li 
                               className="list-none flex flex-row gap-4 relative py-2 hover:bg-side_hovered_song" 
                               key={song.id}
+                              onMouseEnter={() => setHoveredSong(song.id)} onMouseLeave={() => setHoveredSong(-1)}
                           >
-                              <span className="text-right w-6 opacity-70 py-2">{song.track_number}</span>
-                              <div>
-                                  <h2 className="hover:underline cursor-pointer">{song.name}</h2>
-                                  <p className="text-sm hover:underline cursor-pointer w-fit opacity-70">{artist?.name}</p>
-                              </div>
-                              <p className="absolute top-1/4 right-6 w-6 opacity-70">
-                                  {Math.floor(song.duration / 60)}:{song.duration % 60 < 10 ? `0${song.duration % 60}` : song.duration % 60}
-                              </p>
+                            {hoveredSong === song.id ? 
+                              (<>
+                                <button onClick={() => handleSelectSong(song)}>
+                                    <img src="/(hover)PlayButton.svg" alt="Play button"  width={16} height={16} className="ml-2"/>
+                                </button>
+                                <div>
+                                    <h2 className="hover:underline cursor-pointer">{song.name}</h2>
+                                    <p className="text-sm hover:underline cursor-pointer w-fit">{artist?.name}</p>
+                                </div>
+                                <p className="absolute top-1/4 right-6 w-6">
+                                    {Math.floor(song.duration / 60)}:{song.duration % 60 < 10 ? `0${song.duration % 60}` : song.duration % 60}
+                                </p>
+                              </>)
+                              : (
+                                <>
+                                    <span className="text-right w-6 py-2">{song.track_number}</span>
+                                    <div>
+                                        <h2 className="hover:underline cursor-pointer">{song.name}</h2>
+                                        <p className="text-sm hover:underline cursor-pointer w-fit">{artist?.name}</p>
+                                    </div>
+                                    <p className="absolute top-1/4 right-6 w-6">
+                                        {Math.floor(song.duration / 60)}:{song.duration % 60 < 10 ? `0${song.duration % 60}` : song.duration % 60}
+                                    </p>
+                                </>
+                              )}
                           </li>
                       ))}
                   </div>

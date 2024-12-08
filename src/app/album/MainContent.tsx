@@ -73,7 +73,7 @@ export default function MainContent() {
             </ul>
             <div className="grid grid-cols-2 grid-rows-4 gap-2">    
                 {filteredAlbums.slice(0, 8).map((album) => (
-                    <li key={album.id} className={`list-none flex flex-row gap-2 items-center relative rounded-md overflow-hidden ${
+                    <li key={album.id} className={`list-none flex flex-row gap-2 items-center relative rounded-md overflow-hidden hover:cursor-pointer ${
                         hoveredContent === album.id ? "bg-red-950" : "bg-song_bg"}`} 
                         onMouseEnter={() => setHoveredContent(album.id)} onMouseLeave={() => setHoveredContent(null)}
                         onClick={() => (

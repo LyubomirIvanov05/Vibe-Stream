@@ -11,7 +11,6 @@ export default function SongContent() {
     const [artists, setArtists] = useState<Artist[]>([]);
     const [albums, setAlbums] = useState<Album[]>([]);
 
-
     useEffect(() => {
         async function fetchSongs() {
           try {
@@ -29,7 +28,7 @@ export default function SongContent() {
         fetchSongs();
       }, []);
 
-      const getSong = (song_id: number): Song | null => {
+        const getSong = (song_id: number): Song | null => {
         const playingSong = songs.find((song) => song.id === song_id);
         return playingSong || null;
     };
@@ -52,6 +51,8 @@ export default function SongContent() {
       const selectedSongArtist = selectedSong && selectedSong.artist_id !== undefined ? getArtist(selectedSong.artist_id) : null;
       const selectedSongAlbum = selectedSong && selectedSong.album_id !== undefined ? getAlbum(selectedSong.album_id) : null;
       const artistAlbums = selectedSongArtist ? albumsFromArtist(selectedSongArtist.id) : [];
+
+
     return(
         <div className="bg-component_bg px-4 py-5 flex flex-col gap-4 h-full w-custom-420 rounded-md overflow-auto">
             {selectedSong ? (
@@ -60,7 +61,7 @@ export default function SongContent() {
                         <a className="font-bold hover:underline" href="">{selectedSongAlbum?.name}</a>
                         <div className="flex gap-4">
                             <button>
-                            <img className="w-5 h-5" src="/moreButton.svg" alt="More button" />
+                            <img className="w-5 h-5" src="/moreButton.svg" alt="More button"/>
                             </button>
                             <button>
                                 <img className="w-5 h-5" src="/close.svg" alt="More button" />
@@ -74,7 +75,7 @@ export default function SongContent() {
                     </div>
                     <div>
                         <p>More from {selectedSongArtist?.name}</p>
-                        <div>
+                        <div className="flex flex-col gap-2">
                             {artistAlbums.length > 0 ? (
                                 artistAlbums.slice(0, 3).map((album) => (
                                     <div key={album.id} className="flex flex-row gap-4 rounded-xl bg-side_hovered_song p-3">
@@ -92,5 +93,6 @@ export default function SongContent() {
                     </div>
                 </div>
             ): (<div></div>)}
-        </div>)
+        </div>
+    )
 }
