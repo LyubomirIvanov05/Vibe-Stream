@@ -49,7 +49,7 @@ export default function MainContent() {
 
 
     return(
-        <div className="bg-component_bg w-custom-640 p-4 h-full rounded-md">
+        <div className="bg-component_bg w-full p-4 h-full rounded-md">
             <ul className="flex flex-row gap-2 mb-4">
                 <button
                     className={`border rounded-3xl py-1 px-4 text-sm ${activeFilter === "Everyone" ? "bg-white text-black" : "text-white"}`}
@@ -83,7 +83,7 @@ export default function MainContent() {
                             <div className="flex flex-row items-center gap-2" onClick={() => setAlbum(album)}>
                                 <img src={album.cover_image_url} alt={album.name} width={48} height={48}/>
                                 <h2>{album.name}</h2>
-                                <img src="playButton.svg" alt="Play button" className="w-8 absolute right-2 hover:scale-110"/>
+                                <img src="/playButton.svg" alt="Play button" className="w-8 absolute right-2 hover:scale-110"/>
                             </div>
                         ): (
                             <div className="flex flex-row items-center gap-2">

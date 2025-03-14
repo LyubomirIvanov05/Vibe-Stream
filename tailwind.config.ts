@@ -18,8 +18,8 @@ export default {
         your_library: "#b3b3b3"
       },
       width: {
-        'custom-420': "26.25rem",
-        'custom-640': "40rem"
+        'custom-33': "33%",
+        'custom-50': "50%"
       },
       height: {
         'custom-85%': "85%"

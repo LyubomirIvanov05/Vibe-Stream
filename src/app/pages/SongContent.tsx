@@ -54,7 +54,7 @@ export default function SongContent() {
 
 
     return(
-        <div className="bg-component_bg px-4 py-5 flex flex-col gap-4 h-full w-custom-420 rounded-md overflow-auto">
+        <div className="bg-component_bg px-4 py-5 flex flex-col gap-4 h-full w-custom-33 rounded-md overflow-auto">
             {selectedSong ? (
                 <div>
                     <div className="flex flex-row justify-between mb-4">

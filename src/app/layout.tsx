@@ -39,7 +39,7 @@ export default function RootLayout({
           <SongContextProvider>
             <div className="flex flex-col p-2 h-screen">
               <NavigationBar/>
-                <div className="flex flex-row gap-2 h-custom-85%">
+                <div className="flex flex-row gap-2 h-custom-85% w-full">
                   <LibrarySidebar />
                   {children}
                   <SongContent></SongContent>

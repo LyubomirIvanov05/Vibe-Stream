@@ -89,7 +89,7 @@ export default function LibrarySidebar() {
 
 
     return(
-        <div className="bg-component_bg px-3 py-5 flex flex-col gap-4 h-full w-custom-420 rounded-md overflow-auto">
+        <div className="bg-component_bg px-3 py-5 flex flex-col gap-4 h-full w-custom-33 rounded-md overflow-auto">
             <div className="flex flex-row gap-4 px-2">
                 <img src="/library.svg" alt="Library Logo" className="w-6"/>
                 <h1 className="font-bold text-your_library hover:text-white transition-colors duration-300 ease-in-out">Your library</h1>

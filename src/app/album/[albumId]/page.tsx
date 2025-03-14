@@ -3,7 +3,6 @@ import { useAlbumContext, useSongContext } from "@/app/pages/AlbumContext";
 import { Album } from "@/types/album";
 import { Artist } from "@/types/artist";
 import { Song } from "@/types/song";
-import { useRouter } from "next/navigation";
 import {useEffect, useState } from "react";
 
 interface AlbumContentPageProps {
@@ -42,7 +41,7 @@ export default  function AlbumContentPage({ params, }: AlbumContentPageProps){
             setArtists(data.artists);
 
             const album = data.albums.find((album: Album) => album.id === albumId);
-            setSelectedAlbum(album || null);
+            setSelectedAlbum(album);
           } catch (error) {
             console.error('Error fetching songs:', error);
           }
@@ -68,7 +67,7 @@ export default  function AlbumContentPage({ params, }: AlbumContentPageProps){
       const seconds = (selectedAlbum?.total_duration || 0) % 60;
 
     return(
-          <div className="bg-component_bg w-custom-640 w-max-full    p-4 h-full rounded-md overflow-auto">
+          <div className="bg-component_bg w-custom-640 w-full p-4 h-full rounded-md overflow-auto">
               <div className="flex flex-row gap-4 items-end mb-6">
                   <img 
                       src={selectedAlbum?.cover_image_url} 
